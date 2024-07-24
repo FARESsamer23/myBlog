@@ -13,9 +13,6 @@ function App() {
 
   return (
     <BrowserRouter>
-      <h1 className='text-3xl bg-red-500 w-max font-semibold rounded-md p-5 m-3 text-yellow-100   '>
-      Fares samer</h1>
-
       <Routes>
        <Route path="/" element={<Home/>}/>
        <Route path="/about" element={<About/>}/>
