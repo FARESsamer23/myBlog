@@ -1,9 +1,11 @@
 import  express from 'express'
 import mongoose from 'mongoose'
 import  dotenv  from 'dotenv'
+
+
+
 // Set up default mongoose connection
  dotenv.config()
-
 // Connexion à MongoDB
  mongoose
  .connect(process.env.MONGO)
