@@ -24,7 +24,7 @@ export default function SignUp() {
         body: JSON.stringify(formData),
       });
       const data = await res.json();
-      console.log(data);
+   
       if (data.success == false) {
         return setErrormeassage(data.message);
       }
@@ -85,7 +85,7 @@ export default function SignUp() {
               <Label value="Your password" />
               <TextInput
                 type="password"
-                placeholder="password"
+                placeholder="********"
                 id="password"
                 onChange={handleChange}
               />
