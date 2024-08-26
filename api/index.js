@@ -1,7 +1,6 @@
 import  express from 'express'
 import mongoose from 'mongoose'
 import  dotenv  from 'dotenv'
-import userRoutes from './routes/user.route.js'
 import authRoutes from './routes/auth.route.js'
 
 // Set up default mongoose connection
@@ -32,7 +31,7 @@ app.listen(port, () =>{
      console.log(` Server listening on port ${port}!`)
 })
 
-app.use("/api/user",userRoutes)
+
 app.use("/api/auth",authRoutes)
 
 app.use((err,req,res,next)=>{

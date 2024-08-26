@@ -4,7 +4,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
 import { useState } from "react";
 import {useDispatch, useSelector} from 'react-redux'
-import { signInStart,signInFailure,signInSuccess } from "../redux/User/userSlice";
+import { signInStart, signInFailure, signInSuccess } from "../redux/User/userSlice";
+                                                          
+import Oauth from "../components/Oauth";
 
 
 export default function SignIn() {
@@ -102,7 +104,9 @@ export default function SignIn() {
                 "Sign Up"
               )}
             </Button>
+            <Oauth/>
           </form>
+
           <div className="mt-5 flex gap-2 text-sm">
             <span>Have an account?</span>
             <Link className="text-blue-500" to="/sign-up">
