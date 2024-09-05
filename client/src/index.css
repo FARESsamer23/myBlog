@@ -5,3 +5,8 @@
 body{
   font-family: "Gabarito", sans-serif;
 }
+
+body{
+  font-family: "SUSE", sans-serif;
+  font-optical-sizing: auto;
+ }
