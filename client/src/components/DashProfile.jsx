@@ -1,4 +1,5 @@
 import { Alert, Avatar, Button, Label, Spinner, TextInput } from 'flowbite-react';
+
 import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux';
 import {getDownloadURL, getStorage, ref, uploadBytesResumable} from 'firebase/storage'
@@ -6,9 +7,10 @@ import {app} from '../firebase'
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { UpdateFailure,UpdateStart,UpdateSuccess } from '../redux/User/userSlice';
+
 import { useDispatch } from 'react-redux';
 
-export default function DashProfile() {
+export default function DashProfile(){
     const [imageFile, setImageFile] = useState(null);
     const [formData, setFormData] = useState({});
     const [imageFileUrl, setImageFileUrl] = useState(null);
@@ -53,6 +55,8 @@ export default function DashProfile() {
           
     //     }
     //   }
+
+
     setimageFileUploading(true)
      const storage  = getStorage(app);
      const fileName = new Date().getTime() + imageFile.name;
@@ -123,8 +127,8 @@ export default function DashProfile() {
         dispatch(UpdateFailure(error.message))
         setupadteUserError(error.message);
        }
-
     }
+
 
   return (
 
@@ -161,6 +165,7 @@ export default function DashProfile() {
                     />)
                   }
               </div>
+
               {
                 imageFileUplaodinError &&
                 <Alert color="Failure">
@@ -209,7 +214,7 @@ export default function DashProfile() {
 
          <div className='text-red-500 my-5 cursor-pointer font-semibold
           flex justify-between'>
-           <span>Delete Account</span>
+           <span > Delete Account</span>
            <span>Sign out</span>
          </div>
           { upadteUserSuccess && (
