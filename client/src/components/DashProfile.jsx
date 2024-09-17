@@ -7,7 +7,7 @@ import {getDownloadURL, getStorage, ref, uploadBytesResumable} from 'firebase/st
 import {app} from '../firebase'
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import { UpdateFailure,UpdateStart,UpdateSuccess,deleteFailure,deleteStart,deleteSuccess } from '../redux/User/userSlice';
+import { UpdateFailure,UpdateStart,UpdateSuccess,deleteFailure,deleteStart,deleteSuccess,signoutSuccess } from '../redux/User/userSlice';
 import {HiOutlineExclamationCircle} from 'react-icons/hi'
 import { useDispatch } from 'react-redux';
 
@@ -154,6 +154,26 @@ const handelDeletUser =  async ()=>{
 }
 
 
+ 
+ const hanedleSignout = async ()=>{
+        try{
+          const res = await fetch(`/api/user/signout`, {
+            method: 'POST'});
+            const data = res.json();
+            if(!res.ok){
+               console.log(data.message)
+              }
+              else{
+                dispatch(signoutSuccess())
+              }
+
+        }catch(error){
+            console.log(error.message)
+            
+        }
+ }
+
+
   return (
 
     <div className='max-w-lg mx-auto p-3 w-full'>
@@ -239,7 +259,7 @@ const handelDeletUser =  async ()=>{
          <div className='text-red-500 my-5 cursor-pointer font-semibold
           flex justify-between'>
            <span onClick={()=>{setShowmodel(true)}}> Delete Account</span>
-           <span>Sign out</span>
+           <span onClick={hanedleSignout}>Sign out</span>
          </div>
           { upadteUserSuccess && (
             <Alert color='success' severity="success" className='mt-5'>
