@@ -10,6 +10,7 @@ import 'react-circular-progressbar/dist/styles.css';
 import { UpdateFailure,UpdateStart,UpdateSuccess,deleteFailure,deleteStart,deleteSuccess,signoutSuccess } from '../redux/User/userSlice';
 import {HiOutlineExclamationCircle} from 'react-icons/hi'
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 export default function DashProfile(){
     const [imageFile, setImageFile] = useState(null);
@@ -23,6 +24,7 @@ export default function DashProfile(){
     const [upadteUserSuccess,setupadteUserSuccess] = useState(null)
     const [upadteUserError,setupadteUserError] = useState(null)
     const [showmodel,setShowmodel] = useState(false)
+
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.id]: e.target.value });
       };
@@ -84,7 +86,7 @@ export default function DashProfile(){
   }
 
 
-    const {currentUser,error} = useSelector(state => state.user)
+    const {currentUser,error,loading} = useSelector(state => state.user)
     
 
     const handelSubmit = async (e)=>{
@@ -252,8 +254,22 @@ const handelDeletUser =  async ()=>{
              gradientDuoTone="purpleToBlue"
              type="submit"
              outline
+             disabled={loading || imageFileUploading }
            >
-           Update</Button>
+           {loading ?"Loading..." :"Update"}
+           </Button>
+
+           {
+            currentUser.isAdmin &&(
+              <Link to='/create-post'>
+              <Button
+              type='button'
+              gradientDuoTone="purpleToPink"
+              className='w-full'
+              > Create a Post</Button></Link>
+              
+            )
+           }
          </form>
 
          <div className='text-red-500 my-5 cursor-pointer font-semibold
