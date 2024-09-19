@@ -41,7 +41,7 @@ export const signup = async (req,res,next)=>{
             if(!validPassword){
              return next(errorHandler(401,'Invalid password'))
             }
-            const token = jwt.sign( {id:valideUser._id}, process.env.SECRET_KEY,);
+            const token = jwt.sign( {id:valideUser._id ,isAdmin: valideUser.isAdmin}, process.env.SECRET_KEY,);
            const {password: pass, ...rest}= valideUser._doc
           
             res.status(200).cookie('access_token',token,{httpOnly:true})
@@ -78,7 +78,7 @@ export const signup = async (req,res,next)=>{
              profilePicture:googlePhotoUrl
           });   
           await newUser.save()
-          const token = jwt.sign( {id:newUser._id}, process.env.SECRET_KEY,);
+          const token = jwt.sign( {id:newUser._id, isAdmin: valideUser.isAdmin}, process.env.SECRET_KEY,);
           const {password, ...rest}= newUser._doc
         
          
