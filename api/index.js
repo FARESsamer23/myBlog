@@ -3,6 +3,7 @@ import mongoose from 'mongoose'
 import  dotenv  from 'dotenv'
 import authRoutes from './routes/auth.route.js'
 import userRoutes from './routes/user.route.js'
+import postRoutes from './routes/post.route.js'
 import cookieParser from 'cookie-parser';
 
 
@@ -38,6 +39,7 @@ app.use(cookieParser());
 
 app.use("/api/auth",authRoutes) 
 app.use("/api/user",userRoutes)
+app.use("/api/post",postRoutes)
 
 app.use((err,req,res,next)=>{
 
