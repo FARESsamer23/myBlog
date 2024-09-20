@@ -1,7 +1,11 @@
-import { Select, TextInput } from 'flowbite-react'
-import React from 'react'
-
+import { Button, FileInput, Select, TextInput } from 'flowbite-react'
+import React, { useState } from 'react'
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 export default function CreatePost() {
+  const [value, setValue] = useState('');
+ 
+
   return (
     <div className='p-3 max-w-3xl mx-auto min-h-screen'>
     
@@ -17,10 +21,19 @@ export default function CreatePost() {
         />
           <Select>
           <option value="uncategorized">Select a category</option>
-          <option value="private">Private</option>
-
-          </Select>
+          <option value="javascript">Java Script</option>
+          <option value="reactjs">React.js</option>
+          <option value="nodejs">Node.js</option>
+          <option value="nextjs">Next.js</option>
+      </Select>
       </div>
+      <div  className='flex gap-4 items-center justify-between border-4 border-teal-500 
+      border-dotted p-3 '>
+          <FileInput type='file' accept='image/*' />
+          <Button type='button' gradientDuoTone='purpleToBlue' size='sm' outline>Uplaod image</Button>
+      </div>
+      <ReactQuill className='min-h-[300px] h-52 mb-12 ' theme="snow" value={value} onChange={setValue} placeholder='Write somthig...'  required/>
+         <Button  type='submit' gradientDuoTone={'purpleToBlue'} >Publish</Button>
       </form>
     </div>
   )

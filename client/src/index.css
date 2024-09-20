@@ -9,4 +9,10 @@ body{
 body{
   font-family: "SUSE", sans-serif;
   font-optical-sizing: auto;
+  height: 100vh;
+
+ }
+
+ .ql-editor{
+   font-size: 1.05rem;
  }
