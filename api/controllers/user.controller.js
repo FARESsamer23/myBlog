@@ -85,3 +85,55 @@ export const signout = async (req, res, next) => {
   }
 
 }
+
+
+
+export const getUsers = async (req, res, next) => {
+  // Only admins can fetch the users list
+  if (!req.user.isAdmin) {
+    return next(errorHandler(403, "You are not allowed to access this resource"));
+  }
+
+  try {
+    // Pagination parameters
+    const startIndex = parseInt(req.query.startIndex) || 0;
+    const limit = parseInt(req.query.limit) || 10;
+    const sortDirection = req.query.sort === 'asc' ? 1 :-1;
+
+    // Optional search filters for email or username
+    const searchQuery = {};
+    if (req.query.email) {
+      searchQuery.email = { $regex: req.query.email, $options: "i" };
+    }
+    if (req.query.username) {
+      searchQuery.username = { $regex: req.query.username, $options: "i" };
+    }
+
+    // Fetch the users from the database with optional filtering and pagination
+    const users = await User.find(searchQuery).sort({createdAt:sortDirection})
+      .skip(startIndex)
+      .limit(limit);
+
+    // Total users count (for pagination purposes)
+    const totalUsers = await User.countDocuments(searchQuery);
+
+    const now = new Date();
+    const oneMonthAgo = new Date(
+       now.getFullYear(),
+       now.getMonth() - 1,
+       now.getDate()
+    )
+    const lastMonthUsers = await User.countDocuments({
+       createdAt: { $gte: oneMonthAgo },
+    });
+    // Send response (excluding passwords)
+    const usersWithoutPasswords = users.map((user) => {
+      const { password, ...userWithoutPassword } = user._doc;
+      return userWithoutPassword;
+    });
+
+    res.status(200).json({ users: usersWithoutPasswords, lastMonthUsers ,totalUsers });
+  } catch (error) {
+    return next(errorHandler(500, "Error fetching users"));
+  }
+};
