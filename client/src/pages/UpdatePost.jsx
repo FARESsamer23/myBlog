@@ -7,6 +7,8 @@ import "react-quill/dist/quill.snow.css";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { useNavigate, useParams } from 'react-router-dom';
+import {useSelector,useDispatch} from "react-redux"
+
 
 export default function UpdatePost() {
   const [file, setFile] = useState(null);
@@ -18,6 +20,7 @@ export default function UpdatePost() {
 
   const navigate = useNavigate();
   const { postId } = useParams();
+  const {currentUser} = useSelector(state => state.user)
 
   const updateFormData = (key, value) => {
     setFormData((prevData) => ({ ...prevData, [key]: value }));
@@ -67,8 +70,8 @@ export default function UpdatePost() {
     }
 
     try {
-      const res = await fetch(`/api/post/create-post`, {
-        method: 'POST',
+      const res = await fetch(`/api/post/update-post/${postId}/${currentUser._id}`, {
+        method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
@@ -80,8 +83,9 @@ export default function UpdatePost() {
       }
 
       setPublishError(null);
-      setPublishSuccess("Post published successfully.");
-      navigate(`/post/${data.slug}`);
+      setPublishSuccess("Post updated successfully.");
+
+      
     } catch {
       setPublishError("Something went wrong.");
     }

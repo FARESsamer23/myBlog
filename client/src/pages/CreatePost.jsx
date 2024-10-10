@@ -14,6 +14,7 @@ import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 
 import { useNavigate } from 'react-router-dom';
+
 export default function CreatePost() {
 
   const [file, setFile] = useState(null);

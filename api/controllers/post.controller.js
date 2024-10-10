@@ -90,3 +90,46 @@ export const deletepost = async (req, res, next) => {
    }
 }
 
+
+export const updatePost = async (req, res, next) => {
+   const { postId,userId } = req.params;
+ 
+   // Ensure user is authorized to update the post
+   if (req.user.id !== userId && !req.user.isAdmin) {
+     return next(errorHandler(403, 'You are not allowed to update this post.'));
+   }
+ 
+   // Validate required fields
+   if (!req.body.title || !req.body.content) {
+     return next(errorHandler(400, 'Title and content are required.'));
+   }
+ 
+   // Generate slug from the title
+   const slug = req.body.title
+     .split(' ')
+     .join('-')
+     .toLowerCase()
+     .replace(/[^a-zA-Z0-9-]/g, '-');
+ 
+   try {
+     // Update the post with new data
+     const updatedPost = await Post.findByIdAndUpdate(
+       postId,
+       {
+         ...req.body,
+         slug, // update the slug
+         updatedAt: new Date(),
+       },
+       { new: true } // Return the updated document
+     );
+ 
+     // If post not found, return an error
+     if (!updatedPost) {
+       return next(errorHandler(404, 'Post not found.'));
+     }
+ 
+     res.status(200).json(updatedPost); // Return the updated post
+   } catch (error) {
+     return next(error);
+   }
+ };
