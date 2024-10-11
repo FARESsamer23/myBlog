@@ -77,6 +77,32 @@ export const deleteUser = async (req, res, next) => {
 
 }
 
+export const deleteUserbyAdmin = async (req, res, next) => {
+  try {
+    // Check if the current user is an admin
+    if (!req.user.isAdmin) {
+      return next(errorHandler(403, "You are not allowed to delete users"));
+    }
+
+    // Check if the adminId matches the one making the request (for extra security)
+    if (req.user.id !== req.params.adminId) {
+      return next(errorHandler(403, "Admin ID mismatch"));
+    }
+
+    // Delete the user by userId
+    const deletedUser = await User.findByIdAndDelete(req.params.userId);
+
+    if (!deletedUser) {
+      return next(errorHandler(404, "User not found"));
+    }
+
+    // Respond with success if the user was deleted
+    res.status(200).json({ message: "User deleted successfully" });
+  } catch (error) {
+    return next(errorHandler(500, "Error deleting user"));
+  }
+};
+
 export const signout = async (req, res, next) => {
   try{
      res.clearCookie('access-token').status(200).json('user has been signed out');

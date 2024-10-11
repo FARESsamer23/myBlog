@@ -1,8 +1,10 @@
+/* eslint-disable react/no-unescaped-entities */
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Button, Table, Modal } from "flowbite-react";
 import { Link } from "react-router-dom";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
+import { AiOutlineCheck,AiOutlineClose  } from "react-icons/ai";
 
 export default function DashUsers() {
     const { currentUser } = useSelector((state) => state.user);
@@ -10,7 +12,7 @@ export default function DashUsers() {
   
     const [showMore, setShowmore] = useState(true);
     const [showModele, setShowmodel] = useState(false);
-    const [userId, setPostId] = useState(null);
+    const [userId, setUserId] = useState(null);
   
     useEffect(() => {
       const fetchPosts = async () => {
@@ -58,12 +60,12 @@ export default function DashUsers() {
       }
     };
   
-    const handelDeletPoste = async () => {
+    const handelDeletUser = async () => {
       setShowmodel(false);
   
       try {
         const res = await fetch(
-          `/api/user/delete-user/${userId}/${currentUser._id}`,
+          `/api/user/deleteUserByAdmin/${userId}/${currentUser._id}`,
           {
             method: "DELETE",
           }
@@ -105,7 +107,7 @@ export default function DashUsers() {
               {users.map((user, index) => (
                 <Table.Body key={index} className=" divide-y">
                   <Table.Row className="dark:bg-gray-800 bg-white">
-                    <Table.Cell>
+                    <Table.Cell >
                       {new Date(user.updatedAt).toLocaleDateString()}
                     </Table.Cell>
                     <Table.Cell>
@@ -113,7 +115,7 @@ export default function DashUsers() {
                         <img
                           src={user.profilePicture}
                           alt={user.username}
-                          className="w-20 h-10 object-cover bg-gray-500"
+                          className="w-10 h-10 rounded-full object-cover bg-gray-500"
                         />
                       </Link>
                     </Table.Cell>
@@ -131,22 +133,24 @@ export default function DashUsers() {
                       <span
                         onClick={() => {
                           setShowmodel(true);
-                          setPostId(user._id);
+                          setUserId(user._id);
                           console.log(user._id);
                         }}
                         className="text-red-500 hover:underline cursor-pointer text-center"
                       >
-                          {user.isAdmin? 'yes':'no'}
+                          {user.isAdmin? <AiOutlineCheck  className="text-teal-500 text-2xl font-medium"/>:<AiOutlineClose 
+                            className="text-red-500 text-2xl font-medium"
+                            /> }
                       </span>
                     </Table.Cell>
                     <Table.Cell>
                     <span
                     onClick={() => {
                       setShowmodel(true);
-                      setPostId(user._id);
+                      setUserId(user._id);
                       console.log(user._id);
                     }}
-                    className="text-red-500 hover:underline cursor-pointer"
+                    className="text-red-500 hover:underline cursor-pointer text-xs font-medium"
                   >
                       delete
                   </span>
@@ -184,10 +188,10 @@ export default function DashUsers() {
             <div className=" text-center ">
               <h3 className="mb-5 text-sm font-medium text-gray-500 dark:text-gray-400">
                 {" "}
-                Are you sure you want to delete Post?
+                Are you sure you want to delete this user?
               </h3>
               <div className="flex justify-center gap-4">
-                <Button color="failure" onClick={handelDeletPoste}>
+                <Button color="failure" onClick={handelDeletUser}>
                   Yes, I'am sure
                 </Button>
                 <Button
