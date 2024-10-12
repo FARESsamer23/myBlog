@@ -264,7 +264,7 @@ const handelDeletUser =  async ()=>{
               <Link to='/create-post'>
               <Button
               type='button'
-              gradientDuoTone="purpleToPink"
+             color={"teal"}
               className='w-full'
               > Create a Post</Button></Link>
               

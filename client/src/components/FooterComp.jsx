@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { BsFacebook,BsInstagram,BsGithub,BsLinkedin }  from 'react-icons/bs'
 export default function FooterComp() {
   return (
-    <Footer container  className='border border-t-4 border-blue-800 mb-2'>
+    <Footer container  className='border border-t-4 border-teal-400 mb-2'>
       <div className=' w-full max-w-7xl mx-auto'>
         <div className='grid w-full justify-between sm:flex md:grid-cols-1 '>
          
@@ -13,7 +13,7 @@ export default function FooterComp() {
             className="self-center whitespace-nowrap text-sm sm:text-xl
              font-semibold dark:text-white"
           >
-            <span className="px-2 py-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-blue-800  h-12 rounded-md
+            <span className="px-2 py-1 bg-teal-400  h-12 rounded-md
              text-white">
               Fares&apos;s Blog
             </span>
@@ -29,7 +29,7 @@ export default function FooterComp() {
                       target='_blank'
                       rel='noopener norferrer'
                    >
-                   100 JS Project 
+                   JS Project 
                    </Footer.Link>
                    <Footer.Link
                    href='#'
