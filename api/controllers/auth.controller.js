@@ -56,7 +56,7 @@ export const signup = async (req,res,next)=>{
       const {name,email,googlePhotoUrl} = req.body
       
        
-      console.log("rahi mrigla")
+      
 
       try{
         const user = await User.findOne({email})
