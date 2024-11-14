@@ -162,4 +162,25 @@ export const getUsers = async (req, res, next) => {
   } catch (error) {
     return next(errorHandler(500, "Error fetching users"));
   }
+}; 
+
+export const getUserById = async (req, res, next) => {
+  try {
+    // Fetch the user from the database by ID
+    const user = await User.findById(req.params.userId);
+    
+    // Check if the user exists
+    if (!user) {
+      return next(errorHandler(404, "User not found"));
+    }
+
+    // Exclude the password from the response
+    const { password, ...userWithoutPassword } = user._doc;
+
+    // Send response with the user data
+    res.status(200).json({ user: userWithoutPassword });
+    
+  } catch (error) {
+    return next(errorHandler(500, "Error fetching user"));
+  }
 };

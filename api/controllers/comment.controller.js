@@ -24,8 +24,8 @@ export const createComment = async (req, res, next) => {
 
 // Get comments for a specific post
 export const getCommentsByPostId = async (req, res, next) => {
-    try {
-        const comments = await Comment.find({ postId: req.params.postId });
+    try { 
+        const comments = await Comment.find({ postId: req.params.postId }).sort({createdAt:-1})
         res.status(200).json(comments);
     } catch (error) {
         return next(error);

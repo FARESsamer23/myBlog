@@ -55,7 +55,7 @@ export default function SignIn() {
         <div className="flex-1">
           <Link to={"/"} className="font-bold dark:text-white text-4xl">
             <span
-              className="px-2 py-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-blue-800  h-12 rounded-md
+              className="px-2 py-1 bg-teal-400  h-12 rounded-md
      text-white"
             >
               Fares&apos;s Blog
@@ -91,7 +91,7 @@ export default function SignIn() {
             </div>
 
             <Button
-              gradientDuoTone="purpleToBlue"
+               className="bg-teal-400"
               type="submit"
               disabled={Loading}
             >
